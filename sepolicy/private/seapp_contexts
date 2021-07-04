@@ -1,2 +1,6 @@
 # Parts
+<<<<<<< HEAD
 user=system seinfo=platform isPrivApp=true name=com.xiaomi.settings domain=parts_app type=system_app_data_file levelFrom=all
+=======
+user=system seinfo=platform isPrivApp=true name=org.lineageos.settings domain=parts_app type=system_app_data_file levelFrom=all
+>>>>>>> 2cd9a7e (peridot: parts: Add support for High Touch Sampling Rate (HTSR) management)
