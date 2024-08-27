@@ -16,10 +16,10 @@ if [[ ! -d "${MY_DIR}" ]]; then MY_DIR="${PWD}"; fi
 
 ANDROID_ROOT="${MY_DIR}/../../.."
 
-# If XML files don't have comments before the XML header, use this flag
-# Can still be used with broken XML files by using blob_fixup
-export TARGET_DISABLE_XML_FIXING=true
-
+# Define the default patchelf version used to patch blobs
+# This will also be used for utility functions like FIX_SONAME
+# Older versions break some camera blobs for us
+export PATCHELF_VERSION=0_17_2
 HELPER="${ANDROID_ROOT}/tools/extract-utils/extract_utils.sh"
 if [ ! -f "${HELPER}" ]; then
     echo "Unable to find helper script at ${HELPER}"
@@ -66,43 +66,38 @@ function blob_fixup() {
             [ "$2" = "" ] && return 0
             sed -i '1,6d' "${2}"
             ;;
-        system_ext/lib64/libwfdmmsrc_system.so)
-            [ "$2" = "" ] && return 0
-            grep -q "libgui_shim.so" "${2}" || "${PATCHELF}" --add-needed "libgui_shim.so" "${2}"
-            ;;
         system_ext/lib64/libwfdnative.so)
             [ "$2" = "" ] && return 0
             ${PATCHELF} --remove-needed "android.hidl.base@1.0.so" "${2}"
-            grep -q "libinput_shim.so" "${2}" || "${PATCHELF}" --add-needed "libinput_shim.so" "${2}"
             ;;
-        system_ext/lib64/libwfdservice.so)
+        vendor/bin/init.qcom.usb.sh)
             [ "$2" = "" ] && return 0
-            sed -i "s/android.media.audio.common.types-V2-cpp.so/android.media.audio.common.types-V3-cpp.so/" "${2}"
+            sed -i 's/ro.product.marketname/ro.product.odm.marketname/g' "${2}"
             ;;
-        vendor/etc/media_codecs.xml|vendor/etc/media_codecs_cliffs_v0.xml|vendor/etc/media_codecs_performance_cliffs_v0.xml)
+        # MiuiCamera
+        system/lib64/libgui-xiaomi.so)
             [ "$2" = "" ] && return 0
-            sed -Ei "/media_codecs_(google_audio|google_c2|google_telephony|google_video|vendor_audio)/d" "${2}"
+            ${PATCHELF} --set-soname libgui-xiaomi.so "${2}"
             ;;
-        vendor/etc/init/vendor.xiaomi.hardware.vibratorfeature.service.rc)
+        system/lib64/libcamera_algoup_jni.xiaomi.so|system/lib64/libcamera_mianode_jni.xiaomi.so)
             [ "$2" = "" ] && return 0
-            sed -i "s/\/odm\/bin\//\/vendor\/bin\//g" "${2}"
+            ${PATCHELF} --replace-needed libgui.so libgui-xiaomi.so "${2}"
             ;;
-        vendor/lib64/libqcodec2_core.so)
-	    [ "$2" = "" ] && return 0
-            "${PATCHELF}" --add-needed "libcodec2_shim.so" "${2}"
-            ;;
-        vendor/lib64/vendor.libdpmframework.so)
-	    [ "$2" = "" ] && return 0
-            "${PATCHELF_0_17_2}" --add-needed "libhidlbase_shim.so" "${2}"
+        system/priv-app/MiuiCamera/MiuiCamera.apk)
+            [ "$2" = "" ] && return 0
+            tmp_dir="${EXTRACT_TMP_DIR}/MiuiCamera"
+            apktool d -q "${2}" -o "${tmp_dir}" -f
+            grep -rl "com.miui.gallery" "${tmp_dir}" | xargs sed -i 's|"com.miui.gallery"|"com.google.android.apps.photos"|g'
+            apktool b -q "${tmp_dir}" -o "${2}"
+            rm -rf "${tmp_dir}"
+            split --bytes=20M -d "${2}" "${2}".part
             ;;
         *)
             return 1
             ;;
     esac
-
     return 0
 }
-
 function blob_fixup_dry() {
     blob_fixup "$1" ""
 }
