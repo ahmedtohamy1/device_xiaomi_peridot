@@ -226,6 +226,7 @@ PRODUCT_PACKAGES += \
 # HIDL
 PRODUCT_PACKAGES += \
     android.hidl.memory.block@1.0.vendor \
+    libhidlbase_shim \
     libhidltransport.vendor \
     libhwbinder.vendor
 
