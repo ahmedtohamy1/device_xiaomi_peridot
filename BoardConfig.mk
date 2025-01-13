@@ -138,6 +138,9 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES_BLOCKLIST_FILE := $(RAMDISK_MODULES_PATH)/mo
 # Lineage Health
 TARGET_HEALTH_CHARGING_CONTROL_SUPPORTS_BYPASS := false
 
+# MiuiCamera
+CAMERA_PACKAGE_NAME := com.android.camera
+
 # Partitions
 -include vendor/lineage/config/BoardConfigReservedSize.mk
 
