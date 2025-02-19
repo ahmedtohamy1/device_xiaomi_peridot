@@ -47,7 +47,7 @@ CREATE_GETTER_SETTER_WRAPPER(control_illumination, OptBool)
 // Name, Getter, Setter, Parser and default value
 #define NGS(_NAME_) #_NAME_, _NAME_##Getter, _NAME_##Setter
 static Config::Data configData[] = {
-        {NGS(type), &Config::parseString, "rear"},
+        {NGS(type), &Config::parseString, ""},
         {NGS(sensor_id), &Config::parseInt32, "5"},
         {NGS(sensor_location), &Config::parseString, ""},
         {NGS(sensor_strength), &Config::parseInt32, "2"},  // STRONG

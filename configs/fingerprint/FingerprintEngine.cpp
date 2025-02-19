@@ -260,7 +260,7 @@ SensorLocation FingerprintEngine::getSensorLocation() {
 
     auto loc = Fingerprint::cfg().get<std::string>("sensor_location");
     auto isValidStr = false;
-    auto dim = Util::split(loc, ":");
+    auto dim = Util::split(loc, "|");
 
     if (dim.size() < 3 or dim.size() > 4) {
         if (!loc.empty()) LOG(WARNING) << "Invalid sensor location input (x:y:radius):" + loc;

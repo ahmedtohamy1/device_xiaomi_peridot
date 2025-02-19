@@ -48,11 +48,12 @@ Fingerprint::Fingerprint() : mWorker(MAX_WORKER_QUEUE_SIZE) {
     sInstance = this;  // keep track of the most recent instance
 
     std::string sensorTypeProp = Fingerprint::cfg().get<std::string>("type");
-    if (sensorTypeProp == "" || sensorTypeProp == "default" || sensorTypeProp == "rear") {
-        mSensorType = FingerprintSensorType::REAR;
-    } else if (sensorTypeProp == "udfps") {
-        mSensorType = FingerprintSensorType::UNDER_DISPLAY_OPTICAL;
-    } else if (sensorTypeProp == "udfps_us") {
+    if (sensorTypeProp == "udfps_ultrasonic" || sensorTypeProp == "udfps_optical") {
+        if (sensorTypeProp == "udfps_ultrasonic") {
+            mSensorType = FingerprintSensorType::UNDER_DISPLAY_ULTRASONIC;
+        } else {
+            mSensorType = FingerprintSensorType::UNDER_DISPLAY_OPTICAL;
+    }
         mSensorType = FingerprintSensorType::UNDER_DISPLAY_ULTRASONIC;
     } else if (sensorTypeProp == "side") {
         mSensorType = FingerprintSensorType::POWER_BUTTON;
