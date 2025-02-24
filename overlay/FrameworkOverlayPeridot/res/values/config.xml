@@ -1089,4 +1089,7 @@
         <item>0</item>
     </integer-array>
 	
-	</resources>
+    <!-- Type of the udfps long press sensor. Empty if long press is not supported. -->
+    <string name="config_dozeUdfpsLongPressSensorType" translatable="false">org.lineageos.sensor.udfps</string>
+
+</resources>
