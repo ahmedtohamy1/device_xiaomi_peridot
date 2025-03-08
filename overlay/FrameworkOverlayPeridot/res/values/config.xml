@@ -1123,5 +1123,11 @@
     <string name="config_dozeDoubleTapSensorType" translatable="false">org.lineageos.sensor.double_tap</string>
 
     <!-- Type of the tap sensor. Empty if tap is not supported. -->
-    <string name="config_dozeTapSensorType" translatable="false">org.yaap.lineageos.single_tap</string>
+    <string name="config_dozeTapSensorType" translatable="false">org.lineageos.lineageos.single_tap</string>
+
+    <!-- Flag indicating whether the surface flinger has limited
+          alpha compositing functionality in hardware.  If set, the window
+          manager will disable alpha trasformation in animations where not
+          strictly needed. -->
+     <bool name="config_sf_limitedAlpha">true</bool>
 </resources>
