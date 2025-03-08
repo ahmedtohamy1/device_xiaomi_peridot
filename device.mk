@@ -41,6 +41,9 @@ PRODUCT_DEXPREOPT_SPEED_APPS += \
     Settings \
     SystemUI
 
+# Reduce system server verbosity
+PRODUCT_SYSTEM_SERVER_DEBUG_INFO := false
+
 # A/B
 AB_OTA_POSTINSTALL_CONFIG += \
     RUN_POSTINSTALL_system=true \
