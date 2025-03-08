@@ -101,7 +101,7 @@ void FingerprintEngine::onAcquired(int32_t result, int32_t vendorCode) {
     if (result != FINGERPRINT_ACQUIRED_VENDOR) {
         setFingerStatus(false);
         if (result == FINGERPRINT_ACQUIRED_GOOD) setFodStatus(FOD_STATUS_OFF);
-    } else if (vendorCode == 21 || vendorCode == 23) {
+    } else if (vendorCode == 21 || vendorCode == 23 || vendorCode == 22 || vendorCode == 20) {
         /*
          * vendorCode = 21 waiting for fingerprint authentication
          * vendorCode = 23 waiting for fingerprint enroll
