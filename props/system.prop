@@ -25,6 +25,9 @@ pm.dexopt.first-use=speed-profile
 pm.dexopt.secondary=speed-profile
 pm.dexopt.shared=speed
 
+# Feature flags
+persist.sys.fflag.override.settings_enable_monitor_phantom_procs=false
+
 # Media
 media.settings.xml=/vendor/etc/media_profiles_cliffs_v0.xml
 
