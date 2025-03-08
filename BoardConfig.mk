@@ -182,7 +182,6 @@ TARGET_COPY_OUT_VENDOR_DLKM := vendor_dlkm
 TARGET_BOARD_PLATFORM := pineapple
 
 # Properties
-<<<<<<< HEAD
 TARGET_ODM_PROP += $(DEVICE_PATH)/props/odm.prop
 TARGET_VENDOR_PROP += $(DEVICE_PATH)/props/vendor.prop
 TARGET_SYSTEM_PROP += $(DEVICE_PATH)/props/system.prop
