@@ -256,6 +256,7 @@ ro.surface_flinger.wcg_composition_dataspace=143261696
 ro.vendor.displayfeature.dump=true
 ro.surface_flinger.support_kernel_idle_timer=true
 vendor.display.comp_mask=0
+vendor.display.disable_system_load_check=1
 vendor.display.use_layer_ext=0
 vendor.display.use_smooth_motion=0
 vendor.display.disable_excl_rect=0
