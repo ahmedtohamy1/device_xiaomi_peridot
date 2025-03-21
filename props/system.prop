@@ -22,3 +22,6 @@ debug.graphics.game_default_frame_rate.disabled=1
 persist.vendor.sys.memplus.enable=false
 ro.vendor.qti.sys.fw.bg_apps_limit=30
 ro.vendor.qti.sys.fw.bservice_limit=60
+
+# Feature flags
+persist.sys.fflag.override.settings_enable_monitor_phantom_procs=false
